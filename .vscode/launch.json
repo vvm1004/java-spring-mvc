@@ -1,0 +1,14 @@
+{
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Spring Boot-LaptopshopApplication<demo>",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "mainClass": "vn.vvm1004.laptopshop.LaptopshopApplication",
+      "projectName": "demo",
+      "args": "",
+      "envFile": "${workspaceFolder}/.env"
+    }
+  ]
+}
