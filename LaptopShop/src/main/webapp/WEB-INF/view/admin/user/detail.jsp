@@ -12,7 +12,7 @@ uri="http://www.springframework.org/tags/form" %>
     />
     <meta name="description" content="vvm1004 - Dự án laptopshop" />
     <meta name="author" content="vvm1004" />
-    <title>Delete User</title>
+    <title>User detail</title>
     <link href="/css/styles.css" rel="stylesheet" />
     <script
       src="https://use.fontawesome.com/releases/v6.3.0/js/all.js"
@@ -27,40 +27,35 @@ uri="http://www.springframework.org/tags/form" %>
       <div id="layoutSidenav_content">
         <main>
           <div class="container-fluid px-4">
-            <h1 class="mt-4">Manage User</h1>
+            <h1 class="mt-4">Dashboard</h1>
             <ol class="breadcrumb mb-4">
-              <li class="breadcrumb-item"><a href="/admin">Dashboard </a></li>
+              <li class="breadcrumb-item"><a href="/admin"> Dashboard </a></li>
               <li class="breadcrumb-item active">
                 <a href="/admin/user"> Users </a>
               </li>
             </ol>
             <div class="container mt-5">
               <div class="row">
-                <div class="col-md-6 col-12 mx-auto">
-                  <h3>Delete user with id = ${id}</h3>
-                  <hr />
-                  <div class="alert alert-danger">
-                    Are you sure to delete this user?
+                <div class="col-12 mx-auto">
+                  <div class="d-flex justify-content-between">
+                    <h3>User detail id = ${id}</h3>
                   </div>
-
-                  <form:form
-                    method="post"
-                    action="/admin/user/delete"
-                    modelAttribute="newUser"
-                  >
-                    <div class="mb-3" style="display: none">
-                      <label class="form-label">Id</label>
-                      <form:input
-                        value="${id}"
-                        type="text"
-                        class="form-control"
-                        path="id"
-                      />
-                    </div>
-                    <button type="submit" class="btn btn-danger">
-                      Confirm
-                    </button>
-                  </form:form>
+                  <hr />
+                  <div class="card" style="width: 60%">
+                    <div class="card-header">User information</div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item">ID: ${user.id}</li>
+                      <li class="list-group-item">Email: ${user.email}</li>
+                      <li class="list-group-item">
+                        Full name: ${user.fullName}
+                      </li>
+                      <li class="list-group-item">Address: ${user.address}</li>
+                      <li class="list-group-item">
+                        Phone number: ${user.phone}
+                      </li>
+                    </ul>
+                  </div>
+                  <a href="/admin/user" class="btn btn-success mt-2">Back</a>
                 </div>
               </div>
             </div>

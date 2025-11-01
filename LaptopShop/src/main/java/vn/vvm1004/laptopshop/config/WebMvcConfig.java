@@ -31,6 +31,18 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // Serve static resources từ classpath:/static/
         registry.addResourceHandler("/css/**")
-                .addResourceLocations("classpath:/static/css/");
+                .addResourceLocations(
+                        "/WEB-INF/resources/css/",
+                        "classpath:/static/css/");
+        registry.addResourceHandler("/js/**")
+                .addResourceLocations(
+                        "/WEB-INF/resources/js/",
+                        "classpath:/static/js/");
+        // Serve uploaded images from uploads folder
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations(
+                        "file:uploads/images/",
+                        "/WEB-INF/resources/images/",
+                        "classpath:/static/images/");
     }
 }
