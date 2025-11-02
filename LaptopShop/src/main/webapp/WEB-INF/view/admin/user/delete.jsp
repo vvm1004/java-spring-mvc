@@ -37,7 +37,7 @@ uri="http://www.springframework.org/tags/form" %>
             <div class="container mt-5">
               <div class="row">
                 <div class="col-md-6 col-12 mx-auto">
-                  <h3>Delete user with id = ${id}</h3>
+                  <h3>Delete user with Id = ${id}</h3>
                   <hr />
                   <div class="alert alert-danger">
                     Are you sure to delete this user?

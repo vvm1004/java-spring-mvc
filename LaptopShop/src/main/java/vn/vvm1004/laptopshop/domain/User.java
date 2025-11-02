@@ -10,6 +10,10 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "users")
@@ -18,10 +22,20 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @NotNull
+    @Email(message = "Invalid email format", regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$")
+    @NotEmpty(message = "Email do not be empty")
     private String email;
-    private String name;
+
+    @NotNull
+    @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
+
+    @NotNull
+    @Size(min = 2, message = "Full name must be at least 2 characters")
     private String fullName;
+
     private String address;
     private String phone;
     private String avatar;
@@ -59,10 +73,6 @@ public class User {
         return email;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -91,10 +101,6 @@ public class User {
         this.email = email;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setPassword(String password) {
         this.password = password;
     }
@@ -117,7 +123,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User [id=" + id + ", email=" + email + ", name=" + name + ", password=" + password + ", fullName="
+        return "User [id=" + id + ", email=" + email + ", password=" + password + ", fullName="
                 + fullName + ", address=" + address + ", phone=" + phone + ", avatar=" + avatar + "]";
     }
 

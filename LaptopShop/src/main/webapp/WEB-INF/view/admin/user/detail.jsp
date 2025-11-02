@@ -38,7 +38,7 @@ uri="http://www.springframework.org/tags/form" %>
               <div class="row">
                 <div class="col-12 mx-auto">
                   <div class="d-flex justify-content-between">
-                    <h3>User detail id = ${id}</h3>
+                    <h3>User detail Id = ${id}</h3>
                   </div>
                   <hr />
                   <div class="card" style="width: 60%">

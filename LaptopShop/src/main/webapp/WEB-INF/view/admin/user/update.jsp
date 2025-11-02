@@ -14,19 +14,23 @@ uri="http://www.springframework.org/tags/form" %>
     <meta name="author" content="vvm1004" />
     <title>Update user</title>
     <link href="/css/styles.css" rel="stylesheet" />
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
       $(document).ready(() => {
         const avatarFile = $("#avatarFile");
-        const currentAvatar = "${newUser.avatar}";
-        if (currentAvatar) {
-          $("#avatarPreview").attr("src", currentAvatar);
-          $("#avatarPreview").css({ display: "block" });
+        const rawAvatar = "${fn:escapeXml(newUser.avatar)}";
+        if (rawAvatar && rawAvatar.trim() !== "") {
+          const avatarSrc = rawAvatar.startsWith("/")
+            ? rawAvatar
+            : "/images/avatar/" + rawAvatar;
+          $("#avatarPreview").attr("src", avatarSrc).css({ display: "block" });
         }
-        avatarFile.change(function (e) {
-          const imgURL = URL.createObjectURL(e.target.files[0]);
-          $("#avatarPreview").attr("src", imgURL);
-          $("#avatarPreview").css({ display: "block" });
+        avatarFile.on("change", function (e) {
+          if (e.target.files && e.target.files[0]) {
+            const imgURL = URL.createObjectURL(e.target.files[0]);
+            $("#avatarPreview").attr("src", imgURL).css({ display: "block" });
+          }
         });
       });
     </script>
@@ -49,6 +53,7 @@ uri="http://www.springframework.org/tags/form" %>
               <li class="breadcrumb-item active">
                 <a href="/admin/user"> Users </a>
               </li>
+              <li class="breadcrumb-item active">Update</li>
             </ol>
             <div class="container mt-5">
               <div class="row">
