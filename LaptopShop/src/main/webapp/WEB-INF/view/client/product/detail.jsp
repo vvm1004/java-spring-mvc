@@ -17,9 +17,7 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
     />
 
     <!-- Icon Font Stylesheet -->
-    <row
-      g-4
-      mb-5
+    <link
       rel="stylesheet"
       href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
     />
@@ -161,33 +159,49 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
                 </div>
                 <p class="mb-4">${product.shortDesc}</p>
 
-                <div class="input-group quantity mb-5" style="width: 100px">
-                  <div class="input-group-btn">
+                <form
+                  action="/add-product-from-view-detail"
+                  method="post"
+                  class="mb-4"
+                  id="addToCartForm"
+                >
+                  <input
+                    type="hidden"
+                    name="${_csrf.parameterName}"
+                    value="${_csrf.token}"
+                  />
+                  <input type="hidden" value="${product.id}" name="id" />
+                  <div class="input-group quantity mb-3" style="width: 140px">
                     <button
-                      class="btn btn-sm btn-minus rounded-circle bg-light border"
+                      type="button"
+                      id="qtyMinus"
+                      class="btn btn-sm rounded-circle bg-light border"
                     >
                       <i class="fa fa-minus"></i>
                     </button>
-                  </div>
-                  <input
-                    type="text"
-                    class="form-control form-control-sm text-center border-0"
-                    value="1"
-                  />
-                  <div class="input-group-btn">
+                    <input
+                      type="text"
+                      class="form-control form-control-sm text-center border-0"
+                      value="1"
+                      name="quantity"
+                      id="quantityInput"
+                    />
                     <button
-                      class="btn btn-sm btn-plus rounded-circle bg-light border"
+                      type="button"
+                      id="qtyPlus"
+                      class="btn btn-sm rounded-circle bg-light border"
                     >
                       <i class="fa fa-plus"></i>
                     </button>
                   </div>
-                </div>
-                <a
-                  href="#"
-                  class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"
-                  ><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to
-                  cart</a
-                >
+                  <button
+                    type="submit"
+                    class="btn border border-secondary rounded-pill px-4 py-2 text-primary"
+                  >
+                    <i class="fa fa-shopping-bag me-2 text-primary"></i>
+                    Add to cart
+                  </button>
+                </form>
               </div>
               <div class="col-lg-12">
                 <nav>
@@ -298,5 +312,65 @@ uri="http://java.sun.com/jsp/jstl/functions" %>
 
     <!-- Template Javascript -->
     <script src="/client/js/main.js"></script>
+
+    <!-- Quantity Control Script -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const input = document.getElementById("quantityInput");
+        const minus = document.getElementById("qtyMinus");
+        const plus = document.getElementById("qtyPlus");
+
+        function toInt(val, fallback = 1) {
+          const n = parseInt(String(val).replace(/[^0-9-]/g, ""), 10);
+          return isNaN(n) ? fallback : n;
+        }
+
+        function setQty(value) {
+          const v = Math.max(1, toInt(value));
+          // Set immediately and also after a tick to override any conflicting handlers
+          input.value = v;
+          setTimeout(() => {
+            input.value = v;
+          }, 0);
+          setTimeout(() => {
+            input.value = v;
+          }, 10);
+        }
+
+        if (minus && input) {
+          minus.addEventListener(
+            "click",
+            function (e) {
+              e.preventDefault();
+              e.stopPropagation();
+              if (typeof e.stopImmediatePropagation === "function")
+                e.stopImmediatePropagation();
+              const current = toInt(input.value, 1);
+              const next = Math.max(1, current - 1);
+              setQty(next);
+              return false;
+            },
+            true
+          );
+        }
+
+        if (plus && input) {
+          plus.addEventListener(
+            "click",
+            function (e) {
+              e.preventDefault();
+              e.stopPropagation();
+              if (typeof e.stopImmediatePropagation === "function")
+                e.stopImmediatePropagation();
+              const current = toInt(input.value, 1);
+              const next = current + 1;
+              setQty(next);
+              return false;
+            },
+            true
+          );
+        }
+      });
+    </script>
   </body>
 </html>

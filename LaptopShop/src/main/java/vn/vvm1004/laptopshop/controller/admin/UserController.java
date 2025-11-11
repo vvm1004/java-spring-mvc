@@ -138,8 +138,8 @@ public class UserController {
     }
 
     @PostMapping("/admin/user/delete")
-    public String postDeleteUser(Model model, @ModelAttribute("newUser") User eric) {
-        this.userService.deleteUser(eric.getId());
+    public String postDeleteUser(Model model, @ModelAttribute("newUser") User user) {
+        this.userService.deleteUser(user.getId());
         return "redirect:/admin/user";
     }
 

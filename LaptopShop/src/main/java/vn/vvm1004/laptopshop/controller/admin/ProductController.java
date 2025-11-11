@@ -21,6 +21,7 @@ import vn.vvm1004.laptopshop.service.UploadService;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ProductController {
@@ -79,15 +80,21 @@ public class ProductController {
 
     @GetMapping("/admin/product/{id}")
     public String getProductDetail(Model model, @PathVariable long id) {
-        Product product = this.productService.getProductById(id);
-        model.addAttribute("product", product);
+        Optional<Product> product = this.productService.getProductById(id);
+        if (product.isEmpty()) {
+            return "redirect:/admin/product";
+        }
+        model.addAttribute("product", product.get());
         return "admin/product/detail";
     }
 
     @GetMapping("/admin/product/update/{id}")
     public String getUpdateProductPage(Model model, @PathVariable long id) {
-        Product currentProduct = this.productService.getProductById(id);
-        model.addAttribute("newProduct", currentProduct);
+        Optional<Product> currentProduct = this.productService.getProductById(id);
+        if (currentProduct.isEmpty()) {
+            return "redirect:/admin/product";
+        }
+        model.addAttribute("newProduct", currentProduct.get());
         return "admin/product/update";
     }
 
@@ -106,29 +113,30 @@ public class ProductController {
             return "admin/product/update";
         }
 
-        Product existingProduct = this.productService.getProductById(product.getId());
-        if (existingProduct != null) {
-            existingProduct.setName(product.getName());
-            existingProduct.setPrice(product.getPrice());
-            existingProduct.setDetailDesc(product.getDetailDesc());
-            existingProduct.setShortDesc(product.getShortDesc());
-            existingProduct.setQuantity(product.getQuantity());
-            existingProduct.setFactory(product.getFactory());
-            existingProduct.setTarget(product.getTarget());
+        Optional<Product> existingProduct = this.productService.getProductById(product.getId());
+        if (existingProduct.isPresent()) {
+            Product existing = existingProduct.get();
+            existing.setName(product.getName());
+            existing.setPrice(product.getPrice());
+            existing.setDetailDesc(product.getDetailDesc());
+            existing.setShortDesc(product.getShortDesc());
+            existing.setQuantity(product.getQuantity());
+            existing.setFactory(product.getFactory());
+            existing.setTarget(product.getTarget());
 
             // Update image if new file is uploaded
             if (file != null && !file.isEmpty()) {
                 try {
                     String imagePath = uploadService.uploadProductImage(file);
                     if (imagePath != null) {
-                        existingProduct.setImage(imagePath);
+                        existing.setImage(imagePath);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
 
-            this.productService.updateProduct(existingProduct);
+            this.productService.updateProduct(existing);
         }
         return "redirect:/admin/product";
     }

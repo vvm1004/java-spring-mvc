@@ -36,7 +36,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
     </div>
     <div class="sb-sidenav-footer">
       <div class="small">Logged in as:</div>
-      vvm1004
+      <c:out value="${pageContext.request.userPrincipal.name}" />
     </div>
   </nav>
 </div>

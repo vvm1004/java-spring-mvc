@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import vn.vvm1004.laptopshop.domain.Role;
 import vn.vvm1004.laptopshop.domain.User;
 import vn.vvm1004.laptopshop.domain.dto.RegisterDTO;
+import vn.vvm1004.laptopshop.repository.OrderRepository;
+import vn.vvm1004.laptopshop.repository.ProductRepository;
 import vn.vvm1004.laptopshop.repository.RoleRepository;
 import vn.vvm1004.laptopshop.repository.UserRepository;
 
@@ -14,10 +16,16 @@ import vn.vvm1004.laptopshop.repository.UserRepository;
 public class UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
+    private final OrderRepository orderRepository;
+    private final ProductRepository productRepository;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository,
+            OrderRepository orderRepository,
+            ProductRepository productRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
+        this.orderRepository = orderRepository;
+        this.productRepository = productRepository;
     }
 
     public String handleHello() {
@@ -67,4 +75,17 @@ public class UserService {
         return this.userRepository.findByEmail(email);
     }
 
+    public long countUsers() {
+        return this.userRepository.count();
+
+    }
+
+    public long countProducts() {
+        return this.productRepository.count();
+    }
+
+    public long countOrders() {
+        return this.orderRepository.count();
+
+    }
 }

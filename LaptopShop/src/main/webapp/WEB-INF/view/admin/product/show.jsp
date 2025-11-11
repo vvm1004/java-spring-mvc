@@ -1,5 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core" %>
+uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib prefix="fmt"
+uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -40,7 +41,7 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                   <div class="d-flex justify-content-between">
                     <h3>Table Products</h3>
                     <a href="/admin/product/create">
-                      <button class="btn btn-primary">Create product</button>
+                      <button class="btn btn-primary">Create a product</button>
                     </a>
                   </div>
                   <hr />
@@ -59,7 +60,13 @@ uri="http://java.sun.com/jsp/jstl/core" %>
                         <tr>
                           <th>${product.id}</th>
                           <td>${product.name}</td>
-                          <td>${product.price}</td>
+                          <td>
+                            <fmt:formatNumber
+                              type="number"
+                              value="${product.price}"
+                            />
+                            đ
+                          </td>
                           <td>${product.factory}</td>
                           <td>
                             <a
@@ -94,6 +101,6 @@ uri="http://java.sun.com/jsp/jstl/core" %>
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
       crossorigin="anonymous"
     ></script>
-    <script src="js/scripts.js"></script>
+    <script src="/js/scripts.js"></script>
   </body>
 </html>
