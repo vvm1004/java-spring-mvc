@@ -129,6 +129,20 @@
     })
   });
 
+  //add active class to current nav link
+  const navElements = $("#navbarCollapse");
+  const currentPath = window.location.pathname;
+
+  // Correct selector: anchors with class nav-link (not descendant of <a>)
+  // Mark active for exact match or prefix match (e.g. /products?page=2 still highlights /products)
+  navElements.find("a.nav-link").each(function () {
+    const link = $(this);
+    const href = (link.attr("href") || "").trim();
+    const isActive = href && (
+      href === "/" ? currentPath === "/" : currentPath.startsWith(href)
+    );
+    link.toggleClass("active", isActive);
+  });
 
 
   // Product Quantity

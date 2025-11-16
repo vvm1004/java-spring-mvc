@@ -59,7 +59,7 @@
               <div class="col-lg-8 text-end">
                 <ul class="nav nav-pills d-inline-flex text-center mb-5">
                   <li class="nav-item">
-                    <a class="d-flex m-2 py-2 bg-light rounded-pill active" data-bs-toggle="pill" href="#tab-1">
+                    <a class="d-flex m-2 py-2 bg-light rounded-pill active"  href="/products">
                       <span class="text-dark" style="width: 130px;">All Products</span>
                     </a>
                   </li>
@@ -95,7 +95,7 @@
                             <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                               <h4 style="font-size: 15px;"><a href="/product/${product.id}">${product.name}</a></h4>
                               <p>${product.shortDesc}</p>
-                              <div class="d-flex justify-content-between flex-lg-wrap">
+                              <div class="d-flex justify-content-center flex-lg-wrap flex-column">
                                 <p class="text-dark fs-5 fw-bold mb-0">
                                   <fmt:formatNumber value="${product.price}" type="currency" currencySymbol="₫" />
                                 </p>

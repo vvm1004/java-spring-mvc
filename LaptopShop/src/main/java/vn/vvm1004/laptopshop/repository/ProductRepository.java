@@ -1,5 +1,7 @@
 package vn.vvm1004.laptopshop.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import vn.vvm1004.laptopshop.domain.Product;
@@ -12,9 +14,11 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findOneByName(String name);
 
-    List<Product> findAll();
+    // List<Product> findAll();
 
     Optional<Product> findById(long id);
 
     void deleteById(long id);
+
+    Page<Product> findAll(Pageable pageable);
 }
