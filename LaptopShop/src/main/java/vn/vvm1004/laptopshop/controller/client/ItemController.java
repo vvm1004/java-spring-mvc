@@ -1,6 +1,7 @@
 package vn.vvm1004.laptopshop.controller.client;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,7 @@ import vn.vvm1004.laptopshop.domain.Cart;
 import vn.vvm1004.laptopshop.domain.CartDetail;
 import vn.vvm1004.laptopshop.domain.Product;
 import vn.vvm1004.laptopshop.domain.User;
+import vn.vvm1004.laptopshop.domain.dto.ProductCriteriaDTO;
 import vn.vvm1004.laptopshop.service.ProductService;
 
 @Controller
@@ -145,25 +147,58 @@ public class ItemController {
     }
 
     @GetMapping("/products")
-    public String getProductPage(Model model,
-            @RequestParam(name = "page") Optional<String> pageOptional) {
+    public String getProductPage(Model model, ProductCriteriaDTO criteria) {
+
         int page = 1;
         try {
-            if (pageOptional.isPresent()) {
-                page = Integer.parseInt(pageOptional.get());
-            } else {
-                // page = 1;
+            if (criteria.getPage() != null && !criteria.getPage().isEmpty()) {
+                page = Integer.parseInt(criteria.getPage());
             }
         } catch (Exception e) {
-            // page = 1;
-            // TODO: handle exception
+            // page = 1
         }
-        Pageable pageable = PageRequest.of(page - 1, 5);
-        Page<Product> products = this.productService.getAllProducts(pageable);
+
+        Pageable pageable = PageRequest.of(page - 1, 60);
+
+        String name = criteria.getName() != null ? criteria.getName() : "";
+        Double minPrice = criteria.getMinPrice() != null && !criteria.getMinPrice().isEmpty()
+                ? Double.parseDouble(criteria.getMinPrice())
+                : null;
+        Double maxPrice = criteria.getMaxPrice() != null && !criteria.getMaxPrice().isEmpty()
+                ? Double.parseDouble(criteria.getMaxPrice())
+                : null;
+
+        List<String> factories = null;
+        if (criteria.getFactory() != null && !criteria.getFactory().isEmpty()) {
+            factories = Arrays.asList(criteria.getFactory().split(","));
+        }
+
+        List<String> targets = null;
+        if (criteria.getTarget() != null && !criteria.getTarget().isEmpty()) {
+            targets = Arrays.asList(criteria.getTarget().split(","));
+        }
+
+        List<String> price = null;
+        if (criteria.getPrice() != null && !criteria.getPrice().isEmpty()) {
+            price = Arrays.asList(criteria.getPrice().split(","));
+        }
+
+        String sort = criteria.getSort() != null ? criteria.getSort() : "";
+
+        Page<Product> products = this.productService.getAllProductsWithFilters(pageable, name, minPrice, maxPrice,
+                null, factories, targets, price, sort);
+
         List<Product> productList = products.getContent();
         model.addAttribute("products", productList);
         model.addAttribute("currentPage", page);
         model.addAttribute("totalPages", products.getTotalPages());
+
+        // Pass filter parameters to JSP for preserving checkbox states
+        model.addAttribute("selectedFactories", factories != null ? factories : new ArrayList<String>());
+        model.addAttribute("selectedTargets", targets != null ? targets : new ArrayList<String>());
+        model.addAttribute("selectedPrices", price != null ? price : new ArrayList<String>());
+        model.addAttribute("selectedSort", sort);
+
         return "client/product/show";
     }
 

@@ -85,6 +85,21 @@
       <artifactId>spring-session-jdbc</artifactId>
     </dependency>
 
+    <!-- Hibernate JPA Model Generator -->
+    <dependency>
+      <groupId>org.hibernate.orm</groupId>
+      <artifactId>hibernate-jpamodelgen</artifactId>
+      <version>6.4.1.Final</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- JAXB API required by hibernate-jpamodelgen -->
+    <dependency>
+      <groupId>jakarta.xml.bind</groupId>
+      <artifactId>jakarta.xml.bind-api</artifactId>
+    </dependency>
+
+
   </dependencies>
 
   <build>

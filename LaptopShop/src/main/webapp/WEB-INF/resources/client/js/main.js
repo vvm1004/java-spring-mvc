@@ -221,6 +221,63 @@
         return formatted;
     }
 
+    // Product filter functionality
+    $('#filterBtn').on('click', function(e) {
+        e.preventDefault();
+        
+        const currentUrl = new URL(window.location.href);
+        const params = new URLSearchParams();
+        
+        // Get selected factories
+        const factories = [];
+        $('input[type="checkbox"][id^="brand"]:checked').each(function() {
+            const brand = $(this).attr('id').replace('brand', '').toUpperCase();
+            factories.push(brand);
+        });
+        if (factories.length > 0) {
+            params.set('factory', factories.join(','));
+        }
+        
+        // Get selected targets
+        const targets = [];
+        $('input[type="checkbox"][id^="use"]:checked').each(function() {
+            const useId = $(this).attr('id');
+            let target = '';
+            if (useId === 'useGaming') target = 'GAMING';
+            else if (useId === 'useOffice') target = 'SINH-VIEN-VAN-PHONG';
+            else if (useId === 'useDesign') target = 'THIET-KE-DO-HOA';
+            else if (useId === 'useLight') target = 'MONG-NHE';
+            else if (useId === 'useBiz') target = 'DOANH-NHAN';
+            if (target) targets.push(target);
+        });
+        if (targets.length > 0) {
+            params.set('target', targets.join(','));
+        }
+        
+        // Get selected price ranges
+        const prices = [];
+        if ($('#price1').is(':checked')) prices.push('duoi-10-trieu');
+        if ($('#price2').is(':checked')) prices.push('10-toi-15-trieu');
+        if ($('#price3').is(':checked')) prices.push('15-toi-20-trieu');
+        if ($('#price4').is(':checked')) prices.push('tren-20-trieu');
+        if (prices.length > 0) {
+            params.set('price', prices.join(','));
+        }
+        
+        // Get sort option
+        if ($('#sortAsc').is(':checked')) {
+            params.set('sort', 'gia-tang-dan');
+        } else if ($('#sortDesc').is(':checked')) {
+            params.set('sort', 'gia-giam-dan');
+        }
+        
+        // Reset to page 1
+        params.set('page', '1');
+        
+        // Redirect with new filters
+        window.location.href = '/products?' + params.toString();
+    });
+
 
 
 })(jQuery);

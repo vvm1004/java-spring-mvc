@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,12 +16,14 @@ import vn.vvm1004.laptopshop.domain.CartDetail;
 import vn.vvm1004.laptopshop.domain.Order;
 import vn.vvm1004.laptopshop.domain.OrderDetail;
 import vn.vvm1004.laptopshop.domain.Product;
+import vn.vvm1004.laptopshop.domain.Product_;
 import vn.vvm1004.laptopshop.domain.User;
 import vn.vvm1004.laptopshop.repository.CartDetailRepository;
 import vn.vvm1004.laptopshop.repository.CartRepository;
 import vn.vvm1004.laptopshop.repository.OrderDetailRepository;
 import vn.vvm1004.laptopshop.repository.OrderRepository;
 import vn.vvm1004.laptopshop.repository.ProductRepository;
+import vn.vvm1004.laptopshop.service.specification.ProductSpec;
 
 @Service
 public class ProductService {
@@ -48,6 +52,91 @@ public class ProductService {
 
     public Page<Product> getAllProducts(Pageable pageable) {
         return this.productRepository.findAll(pageable);
+    }
+
+    public Page<Product> getAllProductsWithSpec(Pageable pageable, String name) {
+        return this.productRepository.findAll(ProductSpec.nameLike(name), pageable);
+    }
+
+    // case 1:
+    public Page<Product> getAllProductsWithSpec(Pageable pageable, double min) {
+        return this.productRepository.findAll(ProductSpec.minPrice(min), pageable);
+    }
+
+    public Page<Product> getAllProductsWithFilters(Pageable pageable, String name, Double minPrice, Double maxPrice,
+            String factory, List<String> factories, List<String> targets, List<String> price, String sort) {
+        Specification<Product> spec = (root, query, criteriaBuilder) -> criteriaBuilder.conjunction();
+        Specification<Product> combinedSpec = (root, query, criteriaBuilder) -> criteriaBuilder.disjunction();
+
+        if (name != null && !name.isEmpty()) {
+            spec = spec.and(ProductSpec.nameLike(name));
+        }
+        if (minPrice != null && minPrice > 0) {
+            spec = spec.and(ProductSpec.minPrice(minPrice));
+        }
+        if (maxPrice != null && maxPrice > 0) {
+            spec = spec.and(ProductSpec.maxPrice(maxPrice));
+        }
+        if (factory != null && !factory.isEmpty()) {
+            spec = spec.and(ProductSpec.mathFactory(factory));
+        }
+        if (factories != null && !factories.isEmpty()) {
+            spec = spec.and(ProductSpec.mathListFactory(factories));
+        }
+        if (targets != null && !targets.isEmpty()) {
+            spec = spec.and(ProductSpec.mathListTarget(targets));
+        }
+
+        int count = 0;
+        if (price != null) {
+            for (String p : price) {
+                double min = 0;
+                double max = 0;
+                switch (p) {
+                    case "duoi-10-trieu":
+                        min = 0;
+                        max = 10000000;
+                        count++;
+                        break;
+                    case "10-toi-15-trieu":
+                        min = 10000000;
+                        max = 15000000;
+                        count++;
+                        break;
+                    case "15-toi-20-trieu":
+                        min = 15000000;
+                        max = 20000000;
+                        count++;
+                        break;
+                    case "tren-20-trieu":
+                        min = 20000000;
+                        max = 100000000;
+                        count++;
+                        break;
+                }
+                if (min >= 0 && max > 0) {
+                    Specification<Product> rangeSpec = ProductSpec.mathMultiplePrice(min, max);
+                    combinedSpec = combinedSpec.or(rangeSpec);
+                }
+            }
+        }
+
+        // Apply sort
+        if (sort != null && !sort.isEmpty()) {
+            if (sort.equals("gia-tang-dan")) {
+                pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
+                        org.springframework.data.domain.Sort.by("price").ascending());
+            } else if (sort.equals("gia-giam-dan")) {
+                pageable = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(),
+                        org.springframework.data.domain.Sort.by("price").descending());
+            }
+        }
+
+        if (count == 0) {
+            return this.productRepository.findAll(spec, pageable);
+        }
+
+        return this.productRepository.findAll(spec.and(combinedSpec), pageable);
     }
 
     public List<Product> getProductsByName(String name) {

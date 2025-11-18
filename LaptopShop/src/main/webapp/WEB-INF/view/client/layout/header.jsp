@@ -57,6 +57,12 @@
                     </li>
                     <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
                     <li><a class="dropdown-item" href="/order-history">Lịch sử mua hàng</a></li>
+                    <c:if test="${sessionScope.role == 'ADMIN'}">
+                      <li>
+                        <hr class="dropdown-divider">
+                      </li>
+                      <li><a class="dropdown-item" href="/admin"><i class="fas fa-cog me-2"></i>Trang quản trị</a></li>
+                    </c:if>
                     <li>
                       <hr class="dropdown-divider">
                     </li>

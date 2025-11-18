@@ -116,56 +116,47 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               <h5 class="mb-3">Hãng sản xuất</h5>
               <div class="d-flex flex-column gap-2 mb-4">
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    checked
-                    id="brandApple"
-                  /><label class="form-check-label ms-2" for="brandApple"
+                  <input class="form-check-input" type="checkbox"
+                  id="brandApple" ${fn:contains(selectedFactories, 'APPLE') ?
+                  'checked' : ''} /><label
+                    class="form-check-label ms-2"
+                    for="brandApple"
                     >Apple</label
                   >
                 </div>
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="brandAsus"
+                  <input class="form-check-input" type="checkbox" id="brandAsus"
+                  ${fn:contains(selectedFactories, 'ASUS') ? 'checked' : ''}
                   /><label class="form-check-label ms-2" for="brandAsus"
                     >Asus</label
                   >
                 </div>
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="brandLenovo"
-                  /><label class="form-check-label ms-2" for="brandLenovo"
+                  <input class="form-check-input" type="checkbox"
+                  id="brandLenovo" ${fn:contains(selectedFactories, 'LENOVO') ?
+                  'checked' : ''} /><label
+                    class="form-check-label ms-2"
+                    for="brandLenovo"
                     >Lenovo</label
                   >
                 </div>
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="brandDell"
+                  <input class="form-check-input" type="checkbox" id="brandDell"
+                  ${fn:contains(selectedFactories, 'DELL') ? 'checked' : ''}
                   /><label class="form-check-label ms-2" for="brandDell"
                     >Dell</label
                   >
                 </div>
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="brandLG"
+                  <input class="form-check-input" type="checkbox" id="brandLG"
+                  ${fn:contains(selectedFactories, 'LG') ? 'checked' : ''}
                   /><label class="form-check-label ms-2" for="brandLG"
                     >LG</label
                   >
                 </div>
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="brandAcer"
+                  <input class="form-check-input" type="checkbox" id="brandAcer"
+                  ${fn:contains(selectedFactories, 'ACER') ? 'checked' : ''}
                   /><label class="form-check-label ms-2" for="brandAcer"
                     >Acer</label
                   >
@@ -175,46 +166,38 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               <h5 class="mb-3">Mục đích sử dụng</h5>
               <div class="d-flex flex-column gap-2 mb-4">
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="useGaming"
+                  <input class="form-check-input" type="checkbox" id="useGaming"
+                  ${fn:contains(selectedTargets, 'GAMING') ? 'checked' : ''}
                   /><label class="form-check-label ms-2" for="useGaming"
                     >Gaming</label
                   >
                 </div>
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="useOffice"
-                  /><label class="form-check-label ms-2" for="useOffice"
+                  <input class="form-check-input" type="checkbox" id="useOffice"
+                  ${fn:contains(selectedTargets, 'SINH-VIEN-VAN-PHONG') ?
+                  'checked' : ''} /><label
+                    class="form-check-label ms-2"
+                    for="useOffice"
                     >Sinh viên - văn phòng</label
                   >
                 </div>
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="useDesign"
-                  /><label class="form-check-label ms-2" for="useDesign"
+                  <input class="form-check-input" type="checkbox" id="useDesign"
+                  ${fn:contains(selectedTargets, 'THIET-KE-DO-HOA') ? 'checked'
+                  : ''} /><label class="form-check-label ms-2" for="useDesign"
                     >Thiết kế đồ họa</label
                   >
                 </div>
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="useLight"
+                  <input class="form-check-input" type="checkbox" id="useLight"
+                  ${fn:contains(selectedTargets, 'MONG-NHE') ? 'checked' : ''}
                   /><label class="form-check-label ms-2" for="useLight"
                     >Mỏng nhẹ</label
                   >
                 </div>
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="useBiz"
+                  <input class="form-check-input" type="checkbox" id="useBiz"
+                  ${fn:contains(selectedTargets, 'DOANH-NHAN') ? 'checked' : ''}
                   /><label class="form-check-label ms-2" for="useBiz"
                     >Doanh nhân</label
                   >
@@ -224,39 +207,30 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               <h5 class="mb-3">Mức giá</h5>
               <div class="d-flex flex-column gap-2 mb-4">
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    checked
-                    id="price1"
-                  /><label class="form-check-label ms-2" for="price1"
+                  <input class="form-check-input" type="checkbox" id="price1"
+                  ${fn:contains(selectedPrices, 'duoi-10-trieu') ? 'checked' :
+                  ''} /><label class="form-check-label ms-2" for="price1"
                     >Dưới 10 triệu</label
                   >
                 </div>
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="price2"
-                  /><label class="form-check-label ms-2" for="price2"
+                  <input class="form-check-input" type="checkbox" id="price2"
+                  ${fn:contains(selectedPrices, '10-toi-15-trieu') ? 'checked' :
+                  ''} /><label class="form-check-label ms-2" for="price2"
                     >Từ 10 - 15 triệu</label
                   >
                 </div>
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="price3"
-                  /><label class="form-check-label ms-2" for="price3"
+                  <input class="form-check-input" type="checkbox" id="price3"
+                  ${fn:contains(selectedPrices, '15-toi-20-trieu') ? 'checked' :
+                  ''} /><label class="form-check-label ms-2" for="price3"
                     >Từ 15 - 20 triệu</label
                   >
                 </div>
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="checkbox"
-                    id="price4"
-                  /><label class="form-check-label ms-2" for="price4"
+                  <input class="form-check-input" type="checkbox" id="price4"
+                  ${fn:contains(selectedPrices, 'tren-20-trieu') ? 'checked' :
+                  ''} /><label class="form-check-label ms-2" for="price4"
                     >Trên 20 triệu</label
                   >
                 </div>
@@ -265,39 +239,31 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
               <h5 class="mb-3">Sắp xếp</h5>
               <div class="d-flex flex-column gap-2 mb-4">
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="sort"
-                    id="sortAsc"
-                  /><label class="form-check-label ms-2" for="sortAsc"
+                  <input class="form-check-input" type="radio" name="sort"
+                  id="sortAsc" ${selectedSort eq 'gia-tang-dan' ? 'checked' :
+                  ''} /><label class="form-check-label ms-2" for="sortAsc"
                     >Giá tăng dần</label
                   >
                 </div>
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="sort"
-                    id="sortDesc"
-                  /><label class="form-check-label ms-2" for="sortDesc"
+                  <input class="form-check-input" type="radio" name="sort"
+                  id="sortDesc" ${selectedSort eq 'gia-giam-dan' ? 'checked' :
+                  ''} /><label class="form-check-label ms-2" for="sortDesc"
                     >Giá giảm dần</label
                   >
                 </div>
                 <div class="form-check">
-                  <input
-                    class="form-check-input"
-                    type="radio"
-                    name="sort"
-                    id="sortNone"
-                    checked
-                  /><label class="form-check-label ms-2" for="sortNone"
+                  <input class="form-check-input" type="radio" name="sort"
+                  id="sortNone" ${empty selectedSort or selectedSort eq '' ?
+                  'checked' : ''} /><label
+                    class="form-check-label ms-2"
+                    for="sortNone"
                     >Không sắp xếp</label
                   >
                 </div>
               </div>
 
-              <button class="btn btn-success w-100 rounded-pill">
+              <button class="btn btn-success w-100 rounded-pill" id="filterBtn">
                 Lọc sản phẩm
               </button>
             </div>
@@ -306,77 +272,91 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
           <!-- Product list -->
           <div class="col-lg-8 col-xl-9">
             <div class="row g-4">
-              <c:forEach var="product" items="${products}">
-                <c:set var="imgSrc" value="/client/img/fruite-item-1.png" />
-                <c:if test="${not empty product.image}">
-                  <c:choose>
-                    <c:when test="${fn:startsWith(product.image, '/')}">
-                      <c:set var="imgSrc" value="${product.image}" />
-                    </c:when>
-                    <c:otherwise>
-                      <c:set
-                        var="imgSrc"
-                        value="/images/product/${product.image}"
-                      />
-                    </c:otherwise>
-                  </c:choose>
-                </c:if>
-
-                <div class="col-md-6 col-lg-4 col-xl-4">
-                  <div class="rounded position-relative fruite-item">
-                    <div class="fruite-img">
-                      <a href="/product/${product.id}">
-                        <img
-                          src="${imgSrc}"
-                          class="img-fluid w-100 rounded-top product-img-fixed"
-                          alt="${product.name}"
-                        />
-                      </a>
-                    </div>
-                    <div
-                      class="text-white bg-secondary px-3 py-1 rounded position-absolute"
-                      style="top: 10px; left: 10px"
-                    >
-                      Laptop
-                    </div>
-                    <div
-                      class="p-4 border border-secondary border-top-0 rounded-bottom d-flex flex-column product-card"
-                    >
-                      <h4 class="product-card-title">
-                        <a href="/product/${product.id}">${product.name}</a>
-                      </h4>
-                      <p class="product-card-desc">${product.shortDesc}</p>
-                      <div
-                        class="d-flex justify-content-between align-items-center mt-auto"
-                      >
-                        <p class="text-dark fs-5 fw-bold mb-0">
-                          <fmt:formatNumber
-                            value="${product.price}"
-                            type="currency"
-                            currencySymbol="₫"
-                          />
-                        </p>
-                        <form
-                          method="post"
-                          action="/add-product-to-cart/${product.id}"
-                        >
-                          <input
-                            type="hidden"
-                            name="${_csrf.parameterName}"
-                            value="${_csrf.token}"
-                          />
-                          <button
-                            class="mx-auto btn border border-secondary rounded-pill px-3 text-primary"
-                          >
-                            <i class="fa fa-shopping-bag me-2 text-primary"></i>
-                            Add to cart
-                          </button>
-                        </form>
-                      </div>
+              <c:choose>
+                <c:when test="${empty products}">
+                  <div class="col-12">
+                    <div class="alert alert-info text-center" role="alert">
+                      <i class="fas fa-info-circle me-2"></i>
+                      Không tìm thấy sản phẩm nào phù hợp với bộ lọc của bạn.
                     </div>
                   </div>
-                </div>
-              </c:forEach>
+                </c:when>
+                <c:otherwise>
+                  <c:forEach var="product" items="${products}">
+                    <c:set var="imgSrc" value="/client/img/fruite-item-1.png" />
+                    <c:if test="${not empty product.image}">
+                      <c:choose>
+                        <c:when test="${fn:startsWith(product.image, '/')}">
+                          <c:set var="imgSrc" value="${product.image}" />
+                        </c:when>
+                        <c:otherwise>
+                          <c:set
+                            var="imgSrc"
+                            value="/images/product/${product.image}"
+                          />
+                        </c:otherwise>
+                      </c:choose>
+                    </c:if>
+
+                    <div class="col-md-6 col-lg-4 col-xl-4">
+                      <div class="rounded position-relative fruite-item">
+                        <div class="fruite-img">
+                          <a href="/product/${product.id}">
+                            <img
+                              src="${imgSrc}"
+                              class="img-fluid w-100 rounded-top product-img-fixed"
+                              alt="${product.name}"
+                            />
+                          </a>
+                        </div>
+                        <div
+                          class="text-white bg-secondary px-3 py-1 rounded position-absolute"
+                          style="top: 10px; left: 10px"
+                        >
+                          Laptop
+                        </div>
+                        <div
+                          class="p-4 border border-secondary border-top-0 rounded-bottom d-flex flex-column product-card"
+                        >
+                          <h4 class="product-card-title">
+                            <a href="/product/${product.id}">${product.name}</a>
+                          </h4>
+                          <p class="product-card-desc">${product.shortDesc}</p>
+                          <div
+                            class="d-flex justify-content-between align-items-center mt-auto"
+                          >
+                            <p class="text-dark fs-5 fw-bold mb-0">
+                              <fmt:formatNumber
+                                value="${product.price}"
+                                type="currency"
+                                currencySymbol="₫"
+                              />
+                            </p>
+                            <form
+                              method="post"
+                              action="/add-product-to-cart/${product.id}"
+                            >
+                              <input
+                                type="hidden"
+                                name="${_csrf.parameterName}"
+                                value="${_csrf.token}"
+                              />
+                              <button
+                                class="mx-auto btn border border-secondary rounded-pill px-3 text-primary"
+                              >
+                                <i
+                                  class="fa fa-shopping-bag me-2 text-primary"
+                                ></i>
+                                Add to cart
+                              </button>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </c:forEach>
+                </c:otherwise>
+              </c:choose>
             </div>
 
             <!-- Pagination -->
@@ -390,40 +370,42 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
             />
             <nav aria-label="Page navigation" class="mt-4">
               <ul class="pagination justify-content-center">
-                <li class="page-item ${currentPage eq 1 ? 'disabled' : ''}">
-                  <a
-                    class="page-link"
-                    href="/products?page=${prevPage}"
-                    aria-label="Previous"
-                  >
-                    <span aria-hidden="true">&laquo;</span>
-                  </a>
-                </li>
+                <c:if test="${totalPages > 0}">
+                  <li class="page-item ${currentPage eq 1 ? 'disabled' : ''}">
+                    <a
+                      class="page-link"
+                      href="/products?page=${prevPage}${not empty searchName ? '&name='.concat(searchName) : ''}"
+                      aria-label="Previous"
+                    >
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
 
-                <c:forEach begin="0" end="${totalPages - 1}" varStatus="loop">
+                  <c:forEach begin="0" end="${totalPages - 1}" varStatus="loop">
+                    <li
+                      class="page-item ${ (loop.index + 1) eq currentPage ? 'active' : '' }"
+                    >
+                      <a
+                        class="page-link"
+                        href="/products?page=${loop.index + 1}${not empty searchName ? '&name='.concat(searchName) : ''}"
+                      >
+                        ${loop.index + 1}
+                      </a>
+                    </li>
+                  </c:forEach>
+
                   <li
-                    class="page-item ${ (loop.index + 1) eq currentPage ? 'active' : '' }"
+                    class="page-item ${currentPage eq totalPages ? 'disabled' : ''}"
                   >
                     <a
                       class="page-link"
-                      href="/products?page=${loop.index + 1}"
+                      href="/products?page=${nextPage}${not empty searchName ? '&name='.concat(searchName) : ''}"
+                      aria-label="Next"
                     >
-                      ${loop.index + 1}
+                      <span aria-hidden="true">&raquo;</span>
                     </a>
                   </li>
-                </c:forEach>
-
-                <li
-                  class="page-item ${currentPage eq totalPages ? 'disabled' : ''}"
-                >
-                  <a
-                    class="page-link"
-                    href="/products?page=${nextPage}"
-                    aria-label="Next"
-                  >
-                    <span aria-hidden="true">&raquo;</span>
-                  </a>
-                </li>
+                </c:if>
               </ul>
             </nav>
           </div>
