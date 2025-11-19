@@ -16,7 +16,6 @@ import vn.vvm1004.laptopshop.domain.CartDetail;
 import vn.vvm1004.laptopshop.domain.Order;
 import vn.vvm1004.laptopshop.domain.OrderDetail;
 import vn.vvm1004.laptopshop.domain.Product;
-import vn.vvm1004.laptopshop.domain.Product_;
 import vn.vvm1004.laptopshop.domain.User;
 import vn.vvm1004.laptopshop.repository.CartDetailRepository;
 import vn.vvm1004.laptopshop.repository.CartRepository;
@@ -94,7 +93,7 @@ public class ProductService {
                 double max = 0;
                 switch (p) {
                     case "duoi-10-trieu":
-                        min = 0;
+                        min = 1;
                         max = 10000000;
                         count++;
                         break;
@@ -114,7 +113,7 @@ public class ProductService {
                         count++;
                         break;
                 }
-                if (min >= 0 && max > 0) {
+                if (min != 0 && max != 0) {
                     Specification<Product> rangeSpec = ProductSpec.mathMultiplePrice(min, max);
                     combinedSpec = combinedSpec.or(rangeSpec);
                 }

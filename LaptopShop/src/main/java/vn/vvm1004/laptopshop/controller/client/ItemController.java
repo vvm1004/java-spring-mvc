@@ -2,7 +2,9 @@ package vn.vvm1004.laptopshop.controller.client;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -51,6 +54,33 @@ public class ItemController {
         String email = (String) session.getAttribute("email");
         this.productService.handleAddProductToCart(email, productId, session, 1L);
         return "redirect:/";
+    }
+
+    @PostMapping("/api/add-product-to-cart/{id}")
+    @ResponseBody
+    public Map<String, Object> addProductToCartAjax(@PathVariable long id, HttpServletRequest request) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            HttpSession session = request.getSession(false);
+            String email = (String) session.getAttribute("email");
+
+            if (email == null) {
+                response.put("success", false);
+                response.put("message", "Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng");
+                return response;
+            }
+
+            this.productService.handleAddProductToCart(email, id, session, 1L);
+
+            int cartSum = (int) session.getAttribute("sum");
+            response.put("success", true);
+            response.put("message", "Thêm sản phẩm vào giỏ hàng thành công");
+            response.put("cartSum", cartSum);
+        } catch (Exception e) {
+            response.put("success", false);
+            response.put("message", "Có lỗi xảy ra, vui lòng thử lại");
+        }
+        return response;
     }
 
     @GetMapping("/cart")

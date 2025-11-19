@@ -45,7 +45,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
                                                 "classpath:/static/client/");
                 registry.addResourceHandler("/images/**")
                                 .addResourceLocations(
-                                                "file:../uploads/images/",
+                                                "file:e:/demo/uploads/images/",
                                                 "/WEB-INF/resources/images/",
                                                 "classpath:/static/images/");
         }

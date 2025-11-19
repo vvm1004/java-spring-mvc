@@ -278,6 +278,75 @@
         window.location.href = '/products?' + params.toString();
     });
 
+    // AJAX Add to cart
+    $('form[action^="/add-product-to-cart/"]').on('submit', function(e) {
+        e.preventDefault();
+        
+        const form = $(this);
+        const actionUrl = form.attr('action');
+        const productId = actionUrl.split('/').pop();
+        const csrfToken = form.find('input[name="_csrf"]').val();
+        const addButton = form.find('button[type="submit"]');
+        
+        // Disable button to prevent double-click
+        addButton.prop('disabled', true);
+        
+        $.ajax({
+            url: '/api/add-product-to-cart/' + productId,
+            type: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': csrfToken
+            },
+            success: function(response) {
+                if (response.success) {
+                    // Update cart count
+                    $('#cartCount').text(response.cartSum);
+                    
+                    // Show success toast
+                    showToast('success', response.message);
+                } else {
+                    showToast('error', response.message);
+                }
+            },
+            error: function() {
+                showToast('error', 'Có lỗi xảy ra, vui lòng thử lại');
+            },
+            complete: function() {
+                // Re-enable button
+                addButton.prop('disabled', false);
+            }
+        });
+    });
+    
+    // Toast notification function
+    function showToast(type, message) {
+        const toastHtml = `
+            <div class="toast align-items-center text-white bg-${type === 'success' ? 'success' : 'danger'} border-0 position-fixed end-0 m-3" 
+                 role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 9999; top: 80px;">
+                <div class="d-flex">
+                    <div class="toast-body">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'} me-2"></i>
+                        ${message}
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                </div>
+            </div>
+        `;
+        
+        const toast = $(toastHtml);
+        $('body').append(toast);
+        
+        const bsToast = new bootstrap.Toast(toast[0], {
+            delay: 3000
+        });
+        bsToast.show();
+        
+        // Remove toast from DOM after it's hidden
+        toast.on('hidden.bs.toast', function() {
+            toast.remove();
+        });
+    }
+
 
 
 })(jQuery);
