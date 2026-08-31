@@ -123,8 +123,6 @@ The application automatically creates 2 accounts on first startup:
 
 ## 📁 Project Structure
 
-## 📁 Project Structure
-
 ```
 src/main/
 ├── java/vn/vvm1004/laptopshop/

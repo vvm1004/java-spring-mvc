@@ -17,9 +17,7 @@ public class UploadService {
     public String uploadAvatar(MultipartFile file) throws IOException {
         if (file == null || file.isEmpty())
             return null;
-        // Upload outside project folder to e:/demo/uploads/images/avatar
-        Path root = Paths.get("..").toAbsolutePath().normalize()
-                .resolve(Paths.get("uploads", "images", "avatar"));
+        Path root = Paths.get("uploads", "images", "avatar").toAbsolutePath().normalize();
         Files.createDirectories(root);
         String original = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         String filename = System.currentTimeMillis() + "-" + original;
@@ -33,9 +31,7 @@ public class UploadService {
     public String uploadProductImage(MultipartFile file) throws IOException {
         if (file == null || file.isEmpty())
             return null;
-        // Upload outside project folder to e:/demo/uploads/images/product
-        Path root = Paths.get("..").toAbsolutePath().normalize()
-                .resolve(Paths.get("uploads", "images", "product"));
+        Path root = Paths.get("uploads", "images", "product").toAbsolutePath().normalize();
         Files.createDirectories(root);
         String original = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
         String filename = System.currentTimeMillis() + "-" + original;

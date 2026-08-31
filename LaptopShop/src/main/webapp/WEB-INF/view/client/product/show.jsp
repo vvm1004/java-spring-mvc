@@ -1,7 +1,7 @@
-<%@page contentType="text/html" pageEncoding="UTF-8" %> <%@ taglib prefix="c"
-uri="http://java.sun.com/jsp/jstl/core" %> <%@ taglib prefix="fn"
-uri="http://java.sun.com/jsp/jstl/functions" %> <%@ taglib prefix="fmt"
-uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page contentType="text/html" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="vi">
   <head>
@@ -40,38 +40,6 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
     <!-- Template Stylesheet -->
     <link href="/client/css/style.css" rel="stylesheet" />
     <style>
-      /* Page-specific tweaks to stabilize card layout */
-      .fruite-item {
-        border: 0 !important;
-      }
-      .product-card {
-        border-color: #dee2e6 !important;
-        min-height: 220px;
-      }
-      .product-card-title {
-        font-size: 15px;
-        line-height: 1.25;
-        min-height: 38px;
-        line-clamp: 2;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-      .product-card-desc {
-        color: #555;
-        min-height: 42px;
-        margin-bottom: 0.5rem;
-        line-clamp: 2;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-      .product-img-fixed {
-        height: auto;
-        width: 100%;
-      }
       .pagination {
         display: flex;
         flex-wrap: wrap;
@@ -298,8 +266,8 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                       </c:choose>
                     </c:if>
 
-                    <div class="col-md-6 col-lg-4 col-xl-4">
-                      <div class="rounded position-relative fruite-item">
+                    <div class="col-md-6 col-lg-4 col-xl-4 d-flex">
+                      <div class="rounded position-relative fruite-item product-card w-100">
                         <div class="fruite-img">
                           <a href="/product/${product.id}">
                             <img
@@ -316,21 +284,18 @@ uri="http://java.sun.com/jsp/jstl/fmt" %>
                           Laptop
                         </div>
                         <div
-                          class="p-4 border border-secondary border-top-0 rounded-bottom d-flex flex-column product-card"
+                          class="p-4 border border-secondary border-top-0 rounded-bottom product-card-body"
                         >
                           <h4 class="product-card-title">
                             <a href="/product/${product.id}">${product.name}</a>
                           </h4>
                           <p class="product-card-desc">${product.shortDesc}</p>
-                          <div
-                            class="d-flex justify-content-between align-items-center mt-auto"
-                          >
-                            <p class="text-dark fs-5 fw-bold mb-0">
+                          <div class="product-card-footer text-center">
+                            <p class="text-dark fs-5 fw-bold mb-3">
                               <fmt:formatNumber
                                 value="${product.price}"
-                                type="currency"
-                                currencySymbol="₫"
-                              />
+                                type="number"
+                              /> đ
                             </p>
                             <form
                               method="post"
